@@ -1,21 +1,33 @@
 <?php
 namespace App\Components;
-  class Recursive{
-    
+
+class Recursive {
     private $data;
-    private $htmlSelect='';
+    private $htmlSlelect = '';
+
     public function __construct($data)
     {
-      $this->data = $data;
+        $this->data = $data;
+
     }
-    public function categoryRecusrive($id=0, $text=''){
-      foreach ($this->data as $value) {
-        if ($value['parent_id']==$id) {
-          $this->htmlSelect.="<option value='" .$value['id'] . "'>". $text.$value['name'] . "</option>";
-          $this->categoryRecusrive($value['id'], $text. '--');
+
+
+    public  function categoryRecursive($parentId, $id = 0, $text = '')
+    {
+        foreach ($this->data as $value) {
+            if ($value['parent_id'] == $id) {
+                if ( !empty($parentId) && $parentId == $value['id']) {
+                    $this->htmlSlelect .= "<option selected value='" . $value['id'] . "'>" . $text . $value['name'] . "</option>";
+                } else {
+                    $this->htmlSlelect .= "<option value='" . $value['id'] . "'>" . $text . $value['name'] . "</option>";
+                }
+
+                $this->categoryRecursive($parentId, $value['id'], $text. '--');
+            }
         }
-      }
-      return $this->htmlSelect;  
+
+        return $this->htmlSlelect;
+
     }
-  }
-?>
+
+}

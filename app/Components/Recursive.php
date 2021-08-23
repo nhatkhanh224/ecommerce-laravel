@@ -21,7 +21,6 @@ class Recursive {
                 } else {
                     $this->htmlSlelect .= "<option value='" . $value['id'] . "'>" . $text . $value['name'] . "</option>";
                 }
-
                 $this->categoryRecursive($parentId, $value['id'], $text. '--');
             }
         }

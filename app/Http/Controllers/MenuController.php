@@ -42,7 +42,6 @@ class MenuController extends Controller
             'name' => $request->name,
             'parent_id' => $request->parent_id,
             'slug' =>str_slug($request->name)
-            
         ]);
         return redirect()->route('menus.index');
     }

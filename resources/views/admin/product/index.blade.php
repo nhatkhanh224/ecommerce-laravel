@@ -3,6 +3,9 @@
 @section('title')
 <title>Admin</title>
 @endsection
+@section('css')
+    <link rel="stylesheet" href="{{ asset('admins/product/index/list.css') }}">
+@endsection
 
 @section('content')
 <div class="content-wrapper">
@@ -29,13 +32,30 @@
               </tr>
             </thead>
             <tbody>
-              
+              @foreach($products as $productItem)
+              <tr>
+                <th scope="row">{{ $productItem->id  }}</th>
+                <td>{{ $productItem->name }}</td>
+                <td>{{ number_format($productItem->price) }}</td>
+                <td>
+                  <img class="product_image_150_100" src="{{ $productItem->feature_image_path }}" alt="">
+                </td>
+                <td>{{ optional($productItem->category)->name }}</td>
+                <td>
+                  <a href="" class="btn btn-default">Edit</a>
+                  <a href="" data-url=""
+                    class="btn btn-danger action_delete">Delete</a>
+
+                </td>
+              </tr>
+              @endforeach
+
 
             </tbody>
           </table>
         </div>
         <div class="col-md-12">
-          
+        {{ $products->links() }}
         </div>
       </div>
 

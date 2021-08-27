@@ -86,6 +86,6 @@ var options = {
 CKEDITOR.replace('my-editor', options);
 </script>
 
-<script src="{{asset('product/add/add.js')}}"></script>
+<script src="{{asset('admins/product/add/add.js')}}"></script>
 
 @endsection

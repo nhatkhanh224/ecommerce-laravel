@@ -13,7 +13,7 @@
 
 <div class="content-wrapper">
   @include('partials.content-header', ['name' => 'Product', 'key' => 'Add'])
-  <form action="" method="post" enctype="multipart/form-data">
+  <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
     <div class="content">
       <div class="container-fluid">
         <div class="row">
@@ -27,7 +27,7 @@
 
             <div class="form-group">
               <label>Chọn danh mục cha</label>
-              <select class="form-control select2_init" name="parent_id">
+              <select class="form-control select2_init" name="category_id">
                 <option value="0">Chọn danh mục cha</option>
                 {!! $htmlOption !!}
               </select>
@@ -40,7 +40,7 @@
 
             <div class="form-group">
               <label>Giá sản phẩm</label>
-              <input type="text" class="form-control" name="name" placeholder="Nhập giá sản phẩm">
+              <input type="text" class="form-control" name="price" placeholder="Nhập giá sản phẩm">
             </div>
 
             <div class="form-group">
@@ -56,7 +56,7 @@
           <div class="col-md-12">
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Nhập nội dung</label>
-              <textarea id="my-editor" name="content" class="form-control" rows="8" placeholder=""></textarea>
+              <textarea id="my-editor" name="contents" class="form-control" rows="8" placeholder=""></textarea>
             </div>
           </div>
           <div class="col-md-12">
@@ -77,9 +77,9 @@
 <script>
 var options = {
   filebrowserImageBrowseUrl: '/filemanager?type=Images',
-  filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
-  filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
-  filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+  filebrowserImageUploadUrl: '/filemanager/upload?type=Images&_token=',
+  filebrowserBrowseUrl: '/filemanager?type=Files',
+  filebrowserUploadUrl: '/filemanager/upload?type=Files&_token='
 };
 </script>
 <script>

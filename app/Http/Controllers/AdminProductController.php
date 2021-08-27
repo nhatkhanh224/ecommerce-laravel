@@ -4,16 +4,30 @@ namespace App\Http\Controllers;
 
 
 use App\Category;
+use App\Product;
+use App\ProductImage;
+use App\Tag;
+use App\ProductTag;
 use App\Components\Recursive;
 use Illuminate\Http\Request;
+use App\Traits\StorageImageTrait;
 
 class AdminProductController extends Controller
 {
+    use StorageImageTrait;
     private $category;
+    private $product;
+    private $productImage;
+    private $tag;
+    private $productTag;
 
-    public function __construct(Category $category)
+    public function __construct(Category $category,Product $product,ProductImage $productImage,Tag $tag, ProductTag $productTag)
     {
         $this->category = $category;
+        $this->product = $product;
+        $this->productImage = $productImage;
+        $this->tag = $tag;
+        $this->productTag = $productTag;
     }
     public function index(){
         return view('admin.product.index');
@@ -28,6 +42,50 @@ class AdminProductController extends Controller
         $recusive = new Recursive($data);
         $htmlOption = $recusive->categoryRecursive($parentId);
         return $htmlOption;
+    }
+    public function store(Request $request){
+        $dataProductCreate = [
+            'name' => $request->name,
+            'price' => $request->price,
+            'content' => $request->contents,
+            'user_id' => auth()->id(),
+            'category_id' => $request->category_id
+        ];
+
+        $dataUploadFeatureImage=$this->storageTraitUpload($request,'feature_image_path','product');
+        if (!empty($dataUploadFeatureImage)) {
+            $dataProductCreate['feature_image_name'] = $dataUploadFeatureImage['file_name'];
+            $dataProductCreate['feature_image_path'] = $dataUploadFeatureImage['file_path'];
+        }
+        $product = $this->product->create($dataProductCreate);
+
+        //Insert data to product_image
+        if ($request->hasFile('image_path')) {
+            foreach ($request->image_path as $fileItem) {
+                $dataProductImageDetail = $this->storageTraitUploadMutiple($fileItem,'product');
+                $product->images()->create(
+                [
+                    'image_path'=>$dataProductImageDetail['file_path'],
+                    'image_name'=>$dataProductImageDetail['file_name'],
+                ]);
+                
+            }
+        }
+        //Insert tags to product_tags
+        $tagIds = [];
+            if (!empty($request->tags)) {
+                foreach ($request->tags as $tagItem) {
+                    // Insert to tags
+                    $tagInstance = $this->tag->firstOrCreate(['name' => $tagItem]);
+                    $tagIds[] = $tagInstance->id;
+                }
+
+            }
+            $product->tags()->attach($tagIds);
+            return redirect()->route('products.index');
+
+
+        
     }
 
     

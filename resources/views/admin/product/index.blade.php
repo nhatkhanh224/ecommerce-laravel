@@ -6,6 +6,10 @@
 @section('css')
     <link rel="stylesheet" href="{{ asset('admins/product/index/list.css') }}">
 @endsection
+@section('js')
+<script src="{{ asset('vendor/sweetAlert2/sweetalert2@11.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admins/main.js') }}"></script>
+@endsection
 
 @section('content')
 <div class="content-wrapper">
@@ -43,7 +47,7 @@
                 <td>{{ optional($productItem->category)->name }}</td>
                 <td>
                   <a href="{{route('products.edit',['id'=>$productItem->id])}}" class="btn btn-default">Edit</a>
-                  <a href="" data-url=""
+                  <a href="" data-url="{{route('products.delete',['id'=>$productItem->id])}}"
                     class="btn btn-danger action_delete">Delete</a>
 
                 </td>

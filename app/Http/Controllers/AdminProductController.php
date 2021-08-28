@@ -12,6 +12,7 @@ use App\Components\Recursive;
 use Illuminate\Http\Request;
 use App\Traits\StorageImageTrait;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\ProductAddRequest;
 use DB;
 
 class AdminProductController extends Controller
@@ -46,7 +47,7 @@ class AdminProductController extends Controller
         $htmlOption = $recusive->categoryRecursive($parentId);
         return $htmlOption;
     }
-    public function store(Request $request){
+    public function store(ProductAddRequest $request){
         try {
             DB::beginTransaction();
             $dataProductCreate = [

@@ -96,6 +96,11 @@ class AdminProductController extends Controller
 
 
     }
+    public function edit($id){
+        $product = $this->product->find($id);
+        $htmlOption = $this->getCategory($product->category_id);
+        return view('admin.product.edit', compact('htmlOption', 'product'));
+    }
 
     
 }

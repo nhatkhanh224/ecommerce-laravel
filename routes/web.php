@@ -88,6 +88,10 @@ Route::prefix('admin')->group(function () {
             'as'=>'products.edit',
             'uses'=>'AdminProductController@edit'
         ] );
+        Route::post('/update/{id}', [
+            'as' => 'products.update',
+            'uses' => 'AdminProductController@update'
+        ]);
     });
     
 });

@@ -6,6 +6,12 @@
 @section('css')
 <link href="{{asset('admins/slide/add.css')}}" rel="stylesheet" />
 @endsection
+@section('js')
+<script src="{{ asset('vendor/sweetAlert2/sweetalert2@11.js') }}"></script>
+<script type="text/javascript" src="{{ asset('admins/main.js') }}"></script>
+@endsection
+
+
 
 @section('content')
 <div class="content-wrapper">
@@ -39,12 +45,11 @@
                 <td>{{ $slider->description }}</td>
                 <td>
                   <img class="image_slide" src="{{ $slider->image_path }}" alt="">
-
                 </td>
                 <td>
                   <a href="{{route('slider.edit',['id'=>$slider->id])}}" class="btn btn-default">Edit</a>
-                  <a href="" data-url="">Delete</a>
-
+                  <a href="" data-url="{{ route('slider.delete', ['id' => $slider->id]) }}"
+                    class="btn btn-danger action_delete">Delete</a>
                 </td>
               </tr>
               @endforeach
@@ -54,7 +59,7 @@
           </table>
         </div>
         <div class="col-md-12">
-        {{ $sliders->links() }}
+          {{ $sliders->links() }}
         </div>
       </div>
 

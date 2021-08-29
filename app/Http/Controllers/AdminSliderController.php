@@ -65,6 +65,21 @@ class AdminSliderController extends Controller
         }
 
     }
+    public function delete($id){
+        try {
+            $this->slider->find($id)->delete();
+            return response()->json([
+                'code'=>200, 
+                'message'=>'Success', 
+            ],200);
+        } catch (\Exception $exception) {
+            Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+            return response()->json([
+                'code'=>500, 
+                'message'=>'Fail', 
+            ],500);
+        }
+    }
     
 
 }

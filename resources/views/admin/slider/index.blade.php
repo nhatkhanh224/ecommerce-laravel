@@ -3,6 +3,9 @@
 @section('title')
 <title>Admin</title>
 @endsection
+@section('css')
+<link href="{{asset('admins/slide/add.css')}}" rel="stylesheet" />
+@endsection
 
 @section('content')
 <div class="content-wrapper">
@@ -28,13 +31,30 @@
               </tr>
             </thead>
             <tbody>
-            
+              @foreach($sliders as $slider)
+
+              <tr>
+                <th scope="row">{{ $slider->id }}</th>
+                <td>{{ $slider->name }}</td>
+                <td>{{ $slider->description }}</td>
+                <td>
+                  <img class="image_slide" src="{{ $slider->image_path }}" alt="">
+
+                </td>
+                <td>
+                  <a href="" class="btn btn-default">Edit</a>
+                  <a href="" data-url="">Delete</a>
+
+                </td>
+              </tr>
+              @endforeach
+
 
             </tbody>
           </table>
         </div>
         <div class="col-md-12">
-         
+        {{ $sliders->links() }}
         </div>
       </div>
 

@@ -115,6 +115,7 @@ Route::prefix('admin')->group(function () {
             'uses'=>'AdminSliderController@store'
         ] );
         
+        
     });
 
     

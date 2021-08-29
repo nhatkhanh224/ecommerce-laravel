@@ -16,7 +16,9 @@ Route::post('/admin', 'AdminController@postLoginAdmin');
 Route::get('/home', function () {
     return view('home');
 });
+    
 Route::prefix('admin')->group(function () {
+    //Category
     Route::prefix('categories')->group(function () {
         Route::get('/',[
             'as'=>'categories.index',
@@ -45,6 +47,7 @@ Route::prefix('admin')->group(function () {
     
     
     });
+    //Menu
     Route::prefix('menus')->group(function () {
         Route::get('/',[
             'as'=>'menus.index',
@@ -71,6 +74,7 @@ Route::prefix('admin')->group(function () {
             'uses'=>'MenuController@delete'
         ] );
     });
+    //Product
     Route::prefix('products')->group(function () {
         Route::get('/',[
             'as'=>'products.index',
@@ -97,5 +101,21 @@ Route::prefix('admin')->group(function () {
             'uses' => 'AdminProductController@delete'
         ]);
     });
+    Route::prefix('slider')->group(function () {
+        Route::get('/',[
+            'as'=>'slider.index',
+            'uses'=>'AdminSliderController@index'
+        ] );
+        Route::get('/create',[
+            'as'=>'slider.create',
+            'uses'=>'AdminSliderController@create'
+        ] );
+        Route::post('/store',[
+            'as'=>'slider.store',
+            'uses'=>'AdminSliderController@store'
+        ] );
+        
+    });
+
     
 });

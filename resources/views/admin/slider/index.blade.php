@@ -42,7 +42,7 @@
 
                 </td>
                 <td>
-                  <a href="" class="btn btn-default">Edit</a>
+                  <a href="{{route('slider.edit',['id'=>$slider->id])}}" class="btn btn-default">Edit</a>
                   <a href="" data-url="">Delete</a>
 
                 </td>

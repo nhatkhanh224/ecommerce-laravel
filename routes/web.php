@@ -114,6 +114,14 @@ Route::prefix('admin')->group(function () {
             'as'=>'slider.store',
             'uses'=>'AdminSliderController@store'
         ] );
+        Route::get('/edit/{id}',[
+            'as'=>'slider.edit',
+            'uses'=>'AdminSliderController@edit'
+        ] );
+        Route::post('/update/{id}', [
+            'as' => 'slider.update',
+            'uses' => 'AdminSliderController@update'
+        ]);
         
         
     });

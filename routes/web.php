@@ -137,10 +137,10 @@ Route::prefix('admin')->group(function () {
             'as'=>'settings.create',
             'uses'=>'AdminSettingController@create'
         ] );
-        Route::post('/store',[
-            'as'=>'settings.store',
-            'uses'=>'AdminSettingController@store'
-        ] );
+        Route::post('/store', [
+            'as' => 'settings.store',
+            'uses' => 'AdminSettingController@store'
+        ]);
         Route::get('/edit/{id}',[
             'as'=>'settings.edit',
             'uses'=>'AdminSettingController@edit'

@@ -21,7 +21,7 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        
+
         <div class="col-md-12">
           <!-- Example single danger button -->
           <div class="btn-group float-right mb-2 mr-5">
@@ -45,6 +45,21 @@
               </tr>
             </thead>
             <tbody>
+              @foreach($settings as $setting)
+
+              <tr>
+                <th scope="row">{{ $setting->id }}</th>
+                <td>{{ $setting->config_key }}</td>
+                <td>{{ $setting->config_value }}</td>
+                <td>
+                  <a href="{{ route('settings.edit', ['id' => $setting->id]) . '?type=' . $setting->type}}"
+                    class="btn btn-default">Edit</a>
+                  <a href="" data-url="{{ route('settings.delete', ['id' => $setting->id]) }}"
+                    class="btn btn-danger action_delete">Delete</a>
+
+                </td>
+              </tr>
+              @endforeach
 
 
 
@@ -52,7 +67,7 @@
           </table>
         </div>
         <div class="col-md-12">
-
+        {{ $settings->links() }}
         </div>
       </div>
 

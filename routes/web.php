@@ -154,7 +154,8 @@ Route::prefix('admin')->group(function () {
             'uses' => 'AdminSettingController@delete'
         ]);
         
-    });Route::prefix('users')->group(function () {
+    });
+    Route::prefix('users')->group(function () {
         Route::get('/',[
             'as'=>'users.index',
             'uses'=>'AdminUserController@index'
@@ -179,8 +180,20 @@ Route::prefix('admin')->group(function () {
             'as'=>'users.delete',
             'uses'=>'AdminUserController@delete'
         ]);
-        
-        
+    });
+    Route::prefix('roles')->group(function () {
+        Route::get('/',[
+            'as'=>'roles.index',
+            'uses'=>'AdminRoleController@index'
+        ]);
+        Route::get('/create',[
+            'as'=>'roles.create',
+            'uses'=>'AdminRoleController@create'
+        ]);
+        Route::post('/store',[
+            'as'=>'roles.store',
+            'uses'=>'AdminRoleController@store'
+        ]);
     });
 
     

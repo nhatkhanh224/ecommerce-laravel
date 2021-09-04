@@ -22,7 +22,8 @@ Route::prefix('admin')->group(function () {
     Route::prefix('categories')->group(function () {
         Route::get('/',[
             'as'=>'categories.index',
-            'uses'=>'CategoryController@index'
+            'uses'=>'CategoryController@index',
+            'middleware'=>'can:category-list',
         ] );
         Route::get('/create',[
             'as'=>'categories.create',
@@ -51,7 +52,8 @@ Route::prefix('admin')->group(function () {
     Route::prefix('menus')->group(function () {
         Route::get('/',[
             'as'=>'menus.index',
-            'uses'=>'MenuController@index'
+            'uses'=>'MenuController@index',
+            'middleware'=>'can:menu-list',
         ] );
         Route::get('/create',[
             'as'=>'menus.create',
@@ -203,6 +205,4 @@ Route::prefix('admin')->group(function () {
             'uses' => 'AdminRoleController@update'
         ]);
     });
-
-    
 });

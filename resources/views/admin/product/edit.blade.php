@@ -53,7 +53,7 @@
               <input type="file" class="form-control-file" name="feature_image_path" placeholder="Nhập ảnh sản phẩm">
               <div class="col-md-4 feature_image_container">
                 <div class="row">
-                  <img class="feature_image" src="{{ $product->feature_image_path }}" alt="">
+                  <img class="feature_image product_image_150_100" src="{{ $product->feature_image_path }}" alt="">
                 </div>
               </div>
 

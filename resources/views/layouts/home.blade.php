@@ -28,6 +28,7 @@
   <link rel="apple-touch-icon-precomposed" href="{{asset('Eshopper/images/ico/apple-touch-icon-57-precomposed.png')}}">
   <link rel="stylesheet" href="{{asset('owlcarousel/dist/assets/owl.carousel.min.css')}}">
   <link rel="stylesheet" href="{{asset('owlcarousel/dist/assets/owl.theme.default.min.css')}}">
+  @yield('css')
 
 </head>
 <!--/head-->
@@ -62,6 +63,10 @@
     autoplayHoverPause: true
   });
   </script>
+  
+
+
+  @yield('js')
 
 </body>
 

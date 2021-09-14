@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Slider;
 use App\Category;
 use App\Product;
+use App\ProductImage;
 
 class HomeController extends Controller
 {
@@ -30,6 +31,14 @@ class HomeController extends Controller
         $category_menus=Category::where('parent_id',0)->limit(3)->get();
         $products=Product::where('category_id',$category_id)->paginate(12);
         return view('home.product.category.list',compact('category_tabs','category_menus','category','products'));
+    }
+    public function productDetail($product_id){
+        $category_menus=Category::where('parent_id',0)->limit(3)->get();
+        $category = Category::where('parent_id',0)->get();
+        $productsRecommended=Product::latest('view_count','desc')->take(12)->get();
+        $product_details=Product::where('id',$product_id)->first();
+        $product_images=ProductImage::where('product_id',$product_id)->get();
+        return view('home.product.detail',compact('category','category_menus','productsRecommended','product_details','product_images'));
     }
     
 }

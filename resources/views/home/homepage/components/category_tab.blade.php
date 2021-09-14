@@ -11,13 +11,15 @@
   </div>
   <div class="tab-content">
     @foreach($category_tabs as $indexCategoryProduct=>$categoryItemProduct)
-    <div class="tab-pane fade {{$indexCategoryProduct==0?'active in':''}}" id="category_tab_{{$categoryItemProduct->id}}">
+    <div class="tab-pane fade {{$indexCategoryProduct==0?'active in':''}}"
+      id="category_tab_{{$categoryItemProduct->id}}">
       @foreach($categoryItemProduct->products as $productItemTabs)
       <div class="col-sm-3">
         <div class="product-image-wrapper">
           <div class="single-products">
             <div class="productinfo text-center">
-              <img src="{{$productItemTabs->feature_image_path}}" alt="" />
+              <a href="{{route('product.detail',['id'=>$productItemTabs->id])}}"><img
+                  src="{{$productItemTabs->feature_image_path}}" alt="" /></a>
               <h2>{{number_format($productItemTabs->price)}} đ</h2>
               <p>{{$productItemTabs->name}}</p>
               <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>

@@ -219,5 +219,9 @@ Route::prefix('admin')->group(function () {
             'as'=>'category.product',
             'uses'=>'HomeController@category'
         ]);
+        Route::get('/product/{id}',[
+            'as'=>'product.detail',
+            'uses'=>'HomeController@productDetail'
+        ]);
     });
 

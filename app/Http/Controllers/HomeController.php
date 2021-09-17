@@ -41,7 +41,7 @@ class HomeController extends Controller
         return view('home.product.detail',compact('category','category_menus','productsRecommended','product_details','product_images'));
     }
     public function addToCart($id){
-        
+        // session()->flush();
         $product=Product::find($id);
         $cart=session()->get('cart');
         if (isset($cart[$id])) {
@@ -61,7 +61,21 @@ class HomeController extends Controller
     public function showCart(){
         $category_menus=Category::where('parent_id',0)->limit(3)->get();
         $carts=session()->get('cart');
+        
         return view('home.cart.list',compact('category_menus','carts'));
+    }
+    public function updateCart(Request $request){
+        if ($request->id && $request->quantity) {
+            $carts=session()->get('cart');
+            $carts[$request->id]['quantity']=$request->quantity;
+            session()->put('cart',$carts);
+            $carts=session()->get('cart');
+            $cartComponent=view('home.components.cart_components.cart_component',compact('carts'))->render();
+            return response()->json([
+                'cart_component'=>$cartComponent,
+                'code'=>200
+            ],200);
+        }
     }
     
 }

@@ -17,22 +17,6 @@ function changeImage(id) {
 </script>
 
 <script>
-// function addToCart(e) {
-//   e.preventDefault();
-//   let urlCart = $(this).data("url");
-//   $.ajax({
-//     type: "GET",
-//     url: urlCart,
-//     dataType: "json",
-//     success: function(data) {
-//       console.log(data);
-//     },
-//     error: function(data) {
-//       alert('error');
-//     }
-
-//   });
-// }
 $('.cart').click(function(e) {
   e.preventDefault();
   let urlCart = $(this).data("url");

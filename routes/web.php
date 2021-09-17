@@ -231,5 +231,9 @@ Route::prefix('admin')->group(function () {
             'as'=>'cart',
             'uses'=>'HomeController@showCart'
         ]);
+        Route::get('cart/update',[
+            'as'=>'cart.update',
+            'uses'=>'HomeController@updateCart'
+        ]);
     });
 

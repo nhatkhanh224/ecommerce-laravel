@@ -40,5 +40,20 @@ class HomeController extends Controller
         $product_images=ProductImage::where('product_id',$product_id)->get();
         return view('home.product.detail',compact('category','category_menus','productsRecommended','product_details','product_images'));
     }
+    public function addToCart($id){
+        $product=Product::find($id);
+        $cart=session()->get('cart');
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']= $cart[$id]['quantity']+1;
+        }else{
+            $cart[$id]=[
+                'name'=>$product->name,
+                'price' =>$product->price,
+                'quantity' =>1
+            ];
+        }
+        session()->put('cart',$cart);
+        
+    }
     
 }

@@ -223,5 +223,9 @@ Route::prefix('admin')->group(function () {
             'as'=>'product.detail',
             'uses'=>'HomeController@productDetail'
         ]);
+        Route::get('product/add-to-cart/{id}',[
+            'as'=>'addToCart',
+            'uses'=>'HomeController@addToCart'
+        ]);
     });
 

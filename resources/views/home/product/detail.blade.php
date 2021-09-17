@@ -6,19 +6,47 @@
 
 @endsection
 @section('js')
-<script src="{{asset('web/detail/js/elevatezoom.js')}}"></script>
+
 <script>
 var image = $(".product-image img").attr("src");
 
 function changeImage(id) {
   var img_small = $("#" + id).attr("src");
   $(".product-detail-image img").attr("src", img_small);
-  $('#zoom').data("zoom-image", img_small);
-  $('#zoom').elevateZoom();
 }
 </script>
+
 <script>
-$('#zoom').elevateZoom();
+// function addToCart(e) {
+//   e.preventDefault();
+//   let urlCart = $(this).data("url");
+//   $.ajax({
+//     type: "GET",
+//     url: urlCart,
+//     dataType: "json",
+//     success: function(data) {
+//       console.log(data);
+//     },
+//     error: function(data) {
+//       alert('error');
+//     }
+
+//   });
+// }
+$('.cart').click(function(e) {
+  e.preventDefault();
+  let urlCart = $(this).data("url");
+  $.ajax({
+    type: 'GET',
+    url: urlCart,
+    success: function(result) { //we got the response
+      
+    },
+    error: function(jqxhr, status, exception) {
+      alert('Exception:', exception);
+    }
+  })
+})
 </script>
 @endsection
 @section('content')
@@ -37,14 +65,12 @@ $('#zoom').elevateZoom();
           <!--product-details-->
           <div class="col-sm-6">
             <div class="product-detail-image">
-              <img id="zoom"
-                src="{{$product_details->feature_image_path}}"
+              <img id="zoom" src="{{$product_details->feature_image_path}}"
                 data-zoom-image="{{$product_details->feature_image_path}}">
             </div>
             <div class="product-detail-image-sub">
               @foreach($product_images as $image)
-              <img id="{{$image->id}}" onclick="changeImage('{{$image->id}}')"
-                src="{{$image->image_path}}" alt="">
+              <img id="{{$image->id}}" onclick="changeImage('{{$image->id}}')" src="{{$image->image_path}}" alt="">
               @endforeach
             </div>
           </div>
@@ -59,10 +85,10 @@ $('#zoom').elevateZoom();
                 <span>{{number_format($product_details->price)}} đ</span>
                 <label>Quantity:</label>
                 <input type="text" value="1" />
-                <button type="button" class="btn btn-fefault cart">
+                <a href="#" data-url="{{route('addToCart',['id'=>$product_details->id])}}" class="btn btn-fefault cart">
                   <i class="fa fa-shopping-cart"></i>
                   Add to cart
-                </button>
+                </a>
               </span>
               <p><b>Availability:</b> In Stock</p>
               <p><b>Condition:</b> New</p>

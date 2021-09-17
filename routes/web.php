@@ -227,5 +227,9 @@ Route::prefix('admin')->group(function () {
             'as'=>'addToCart',
             'uses'=>'HomeController@addToCart'
         ]);
+        Route::get('cart',[
+            'as'=>'cart',
+            'uses'=>'HomeController@showCart'
+        ]);
     });
 

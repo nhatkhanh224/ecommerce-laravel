@@ -41,6 +41,7 @@ class HomeController extends Controller
         return view('home.product.detail',compact('category','category_menus','productsRecommended','product_details','product_images'));
     }
     public function addToCart($id){
+        
         $product=Product::find($id);
         $cart=session()->get('cart');
         if (isset($cart[$id])) {
@@ -49,11 +50,18 @@ class HomeController extends Controller
             $cart[$id]=[
                 'name'=>$product->name,
                 'price' =>$product->price,
-                'quantity' =>1
+                'quantity' =>1,
+                'image'=>$product->feature_image_path,
             ];
         }
         session()->put('cart',$cart);
+        return response()->json(['code'=>200,'message'=>'success'],200);
         
+    }
+    public function showCart(){
+        $category_menus=Category::where('parent_id',0)->limit(3)->get();
+        $carts=session()->get('cart');
+        return view('home.cart.list',compact('category_menus','carts'));
     }
     
 }

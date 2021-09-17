@@ -40,7 +40,7 @@ $('.cart').click(function(e) {
     type: 'GET',
     url: urlCart,
     success: function(result) { //we got the response
-      
+      alert('Thêm sản phẩm thành công');
     },
     error: function(jqxhr, status, exception) {
       alert('Exception:', exception);

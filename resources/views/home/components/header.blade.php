@@ -5,7 +5,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="header-title">
-							<span><a href="">Rinn Ecommerce</a></span>
+							<span><a href="{{route('homepage.index')}}">Rinn Ecommerce</a></span>
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -26,7 +26,7 @@
 							</div>
 							<div class="header-right-cart">
 								<ion-icon name="cart-outline"></ion-icon>
-								<span>Cart</span>
+								<span><a href="{{route('cart')}}">Cart</a></span>
 							</div>
 						</div>
 					</div>

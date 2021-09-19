@@ -26,7 +26,7 @@
           @php
           $total += $cartItem['price']*$cartItem['quantity'];
           @endphp
-          <tr>
+          <tr data-id="{{ $id }}">
             <td class="cart_product">
               <a href=""><img style="width:40%" src="{{$cartItem['image']}}" alt=""></a>
             </td>
@@ -39,18 +39,17 @@
             </td>
             <td style="width:23%" class="cart_quantity">
               <div class="cart_quantity_button">
-                <a class="cart_quantity_up" href=""> + </a>
-                <input class="cart_quantity_input" type="text" name="quantity" value="{{$cartItem['quantity']}}"
-                  autocomplete="off" size="2">
-                <a class="cart_quantity_down" href=""> - </a>
+
+              <input type="number" style="width:100px" value="{{$cartItem['quantity']}}" class="form-control quantity update-cart" size="3" />
+
               </div>
             </td>
             <td style="width:25%" class="cart_total">
               <p class="cart_total_price">{{number_format($cartItem['price']*$cartItem['quantity'])}} đ</p>
             </td>
             <td style="margin-right:1px;display:flex" class="cart_delete">
-              <a href="#" data-id="{{$id}}" class="cart_quantity_update"><i class="fa fa-edit"></i></a>
-              <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+              <!-- <a href="#" data-id="{{$id}}" class="cart_quantity_update"><i class="fa fa-edit"></i></a> -->
+              <a class="cart_quantity_delete delete-cart"  data-id="{{$id}}" href=""><i class="fa fa-times"></i></a>
             </td>
 
           </tr>

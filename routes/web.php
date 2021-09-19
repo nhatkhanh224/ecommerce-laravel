@@ -235,5 +235,9 @@ Route::prefix('admin')->group(function () {
             'as'=>'cart.update',
             'uses'=>'HomeController@updateCart'
         ]);
+        Route::get('cart/delete',[
+            'as'=>'cart.delete',
+            'uses'=>'HomeController@deleteCart'
+        ]);
     });
 

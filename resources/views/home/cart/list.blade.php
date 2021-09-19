@@ -4,29 +4,71 @@
 @endsection
 @section('js')
 <script>
-$('.cart_quantity_update').click(function(e) {
+// function updateCart(e) {
+//   e.preventDefault();
+//   let urlUpdateCart = $('.update_cart_url').data('url');
+//   let id = $(this).data('id');
+//   let quantity = $(this).parents('tr').find('input').val();
+//   $.ajax({
+//     type: "GET",
+//     url: urlUpdateCart,
+//     data: {
+//       id: id,
+//       quantity: quantity
+//     },
+//     success: function(data) {
+//       if (data.code === 200) {
+//         $('.wrapper').html(data.cart_component);
+//         alert('Cập nhật thành công');
+//       }
+//     },
+//     error: function() {
+
+//     }
+
+//   });
+// }
+
+function cartUpdate(e) {
   e.preventDefault();
-  let urlUpdateCart = $('.update_cart_url').data('url');
-  let id = $(this).data('id');
-  let quantity = $(this).parents('tr').find('input').val();
+  var ele = $(this);
   $.ajax({
-    type: "GET",
-    url: urlUpdateCart,
+    url: '{{ route('cart.update')}}',
+    method: "get",
     data: {
-      id: id,
-      quantity: quantity
+      id: ele.parents("tr").attr("data-id"),
+      quantity: ele.parents("tr").find(".quantity").val()
     },
     success: function(data) {
-      if (data.code===200) {
+      if (data.code === 200) {
+        console.log(1);
         $('.wrapper').html(data.cart_component);
       }
     },
-    error: function() {
-      
-    }
   });
-
-});
+}
+function cartDelete(e) {
+  e.preventDefault();
+  var ele = $(this);
+  let id = ele.data("id");
+  $.ajax({
+    url: '{{ route('cart.delete')}}',
+    method: "get",
+    data: {
+      id: id,
+    },
+    success: function(data) {
+      if (data.code === 200) {
+        $('.wrapper').html(data.cart_component);
+        alert('Cập nhật thành công');
+      }
+    },
+  });
+}
+$(function() {
+  $(document).on("change", '.update-cart', cartUpdate);
+  $(document).on("click", '.delete-cart', cartDelete);
+})
 </script>
 @endsection
 @section('content')

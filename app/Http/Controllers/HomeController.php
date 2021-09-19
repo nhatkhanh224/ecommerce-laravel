@@ -65,10 +65,23 @@ class HomeController extends Controller
         return view('home.cart.list',compact('category_menus','carts'));
     }
     public function updateCart(Request $request){
-        if ($request->id && $request->quantity) {
+        if($request->id && $request->quantity){
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
             $carts=session()->get('cart');
-            $carts[$request->id]['quantity']=$request->quantity;
-            session()->put('cart',$carts);
+            $cartComponent=view('home.components.cart_components.cart_component',compact('carts'))->render();
+            return response()->json([
+                'cart_component'=>$cartComponent,
+                'code'=>200
+            ],200);
+        }
+    }
+    public function deleteCart(Request $request){
+        if($request->id){
+            $cart = session()->get('cart');
+            unset($cart[$request->id]);
+            session()->put('cart', $cart);
             $carts=session()->get('cart');
             $cartComponent=view('home.components.cart_components.cart_component',compact('carts'))->render();
             return response()->json([

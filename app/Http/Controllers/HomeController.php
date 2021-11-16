@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Slider;
 use App\Category;
 use App\Product;
 use App\ProductImage;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -19,7 +21,7 @@ class HomeController extends Controller
     public function index(){
         $sliders=$this->slider->latest()->get();
         $category = Category::where('parent_id',0)->get();
-        $products=Product::Latest()->take(6)->get();
+        $products=Product::latest('view_count','desc')->take(6)->get();
         $productsRecommended=Product::latest('view_count','desc')->take(12)->get();
         $category_tabs= Category::where('parent_id',0)->limit(5)->orderBy('id', 'DESC')->get();
         $category_menus=Category::where('parent_id',0)->limit(3)->get();
@@ -89,6 +91,12 @@ class HomeController extends Controller
                 'code'=>200
             ],200);
         }
+    }
+    public function checkout(){
+        $user = Auth::user();
+        $category_menus=Category::where('parent_id',0)->limit(3)->get();
+        $carts=session()->get('cart');
+        return view('home.homepage.checkout',compact('category_menus','carts','user'));
     }
     
 }

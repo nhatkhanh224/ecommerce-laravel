@@ -239,5 +239,9 @@ Route::prefix('admin')->group(function () {
             'as'=>'cart.delete',
             'uses'=>'HomeController@deleteCart'
         ]);
+        Route::get('checkout',[
+            'as'=>'checkout',
+            'uses'=>'HomeController@checkout'
+        ]);
     });
 

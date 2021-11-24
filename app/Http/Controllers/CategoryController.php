@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Components\Recursive;
 use App\Category;
+use App\Http\Requests\CategoryAddRequest;
 
 class CategoryController extends Controller
 {
@@ -22,11 +23,12 @@ class CategoryController extends Controller
         $categories=$this->category->latest()->paginate(5);
         return view("admin.category.index",compact('categories'));
     }
-    public function store(Request $request){
+    public function store(CategoryAddRequest $request){
         $this->category->create([
             'name' => $request->name,
             'parent_id' => $request->parent_id,
-            'slug' => str_slug($request->name)
+            'slug' => str_slug($request->name),
+            'photo_url' =>$request->photo_url,
         ]);
         return redirect()->route('categories.index');
     }
@@ -50,7 +52,8 @@ class CategoryController extends Controller
         $this->category->find($id)->update([
             'name' => $request->name,
             'parent_id' => $request->parent_id,
-            'slug' => str_slug($request->name)
+            'slug' => str_slug($request->name),
+            'photo_url' =>$request->photo_url,
         ]);
         return redirect()->route('categories.index');
     }

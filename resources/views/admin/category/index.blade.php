@@ -23,6 +23,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Tên danh mục</th>
+                <th scope="col">Ảnh đại diện (cho Mobile) </th>
                 <th scope="col">Action</th>
 
               </tr>
@@ -32,7 +33,7 @@
               <tr>
                 <th scope="row">{{$category->id}}</th>
                 <td>{{$category->name}}</td>
-
+                <td><img style="width:100px" src="{{$category->photo_url}}" alt=""></td>
                 <td>
                   @can('category-edit')
                   <a href="{{route('categories.edit',['id'=>$category->id])}}" class="btn btn-default">Edit</a>

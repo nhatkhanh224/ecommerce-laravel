@@ -223,7 +223,7 @@ Route::prefix('admin')->group(function () {
             'as'=>'product.detail',
             'uses'=>'HomeController@productDetail'
         ]);
-        Route::get('product/add-to-cart/{id}',[
+        Route::post('product/add-to-cart/{id}',[
             'as'=>'addToCart',
             'uses'=>'HomeController@addToCart'
         ]);
@@ -231,17 +231,20 @@ Route::prefix('admin')->group(function () {
             'as'=>'cart',
             'uses'=>'HomeController@showCart'
         ]);
-        Route::get('cart/update',[
+        // Route::get('cart/update/{quantity}/{id}',[
+        //     'as'=>'cart.update',
+        //     'uses'=>'HomeController@updateCart'
+        // ]);
+        Route::get('cart/update/{id}/{quantity}',[
             'as'=>'cart.update',
-            'uses'=>'HomeController@updateCart'
+            'uses'=>'HomeController@updateQuantity'
         ]);
-        Route::get('cart/delete',[
+        Route::get('cart/delete/{id}',[
             'as'=>'cart.delete',
             'uses'=>'HomeController@deleteCart'
         ]);
-        Route::get('checkout',[
+        Route::post('checkout',[
             'as'=>'checkout',
             'uses'=>'HomeController@checkout'
         ]);
     });
-

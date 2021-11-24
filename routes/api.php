@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Product;
 use App\Cart;
+use App\User;
+use App\Address;
+use App\Order;
+use App\Order_Detail;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,4 +88,31 @@ Route::post('/cart/delete/{id}', function (Request $request,$id) {
     $cart= Cart::where('product_id',$id)->first();
     Cart::where('product_id',$id)->delete();
     return response()->json(['message'=>"Delete Success",'code'=>200]);
+});
+Route::get('/address/{email}',function ($username) {
+    $user= User::where('email',$username)->get();
+    return response($user,200);
+});
+Route::post('/checkout/{email}', function (Request $request,$email) {
+    $carts= Cart::where('username',$email)->get();
+    $user= User::where('email',$email)->first();
+    $order=new Order();
+        $order->email=$email;
+        $order->address=$user->address;
+        $order->phone_number=$user->phone_number;
+        $order->amount=$request->amount;
+        $order->status="Mới đặt hàng";
+        $order->save();
+        $order_id=$order->id;
+        foreach ($carts as $cart){
+            $orderDetail=new Order_Detail();
+            $orderDetail->order_id=$order_id;
+            $orderDetail->product_id=$cart->product_id;
+            $orderDetail->product_name=$cart->product_name;
+            $orderDetail->price=$cart->price;
+            $orderDetail->quantity=$cart->quantity;
+            $orderDetail->save();
+        }
+    Cart::where('username',$email)->delete();
+    return response()->json(['message'=>'Payment Success','code'=>200]);
 });

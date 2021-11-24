@@ -1,0 +1,25 @@
+:root{
+    --white-color: #fff;
+    --primary-color: rgb(26, 148, 255);
+    --secondary-color: rgb(13, 92, 182);
+    --border-color: #dbdbdb;
+    --header-height: 104px;
+    --header-search: 70px;
+    --header-navbar: calc(var(--header-height) - var(--header-search));
+    --header-sort-bar-height: 16px
+}
+*{
+    box-sizing: border-box;
+}
+ul,li{
+    list-style-type: none;
+}
+a{
+    text-decoration: none;
+}
+html{
+    font-size: 62.5%;
+    line-height: 1.6rem;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}

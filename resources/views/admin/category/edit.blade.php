@@ -33,7 +33,15 @@
                                 {!! $htmlOption !!}
                             </select>
                         </div>
-
+                        <div class="form-group">
+                                <label>Ảnh đại diện ( cho Mobile)</label>
+                                <input type="text"
+                                       class="form-control"
+                                       name="photo_url"
+                                       value="{{ $category->photo_url }}"
+                                       placeholder="Nhập ảnh đại diện"
+                                >
+                            </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

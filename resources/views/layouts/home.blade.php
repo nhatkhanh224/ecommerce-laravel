@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{asset('Tiki/assets/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('Tiki/assets/css/grid.css')}}">
     <link rel="stylesheet" href="{{asset('Tiki/assets/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{asset('Tiki/assets/css/page-search.css')}}">
+    <link rel="stylesheet" href="{{asset('Tiki/assets/css/owl.theme.default.min.css')}}">
     <title>Tiki</title>
 </head>
 <body>
@@ -24,5 +26,6 @@
     <script src="{{asset('Tiki/assets/js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('Tiki/assets/js/script.js')}}"></script>
     <script src="{{asset('Tiki/assets/js/slider.js')}}"></script>
+    <script src="{{asset('Tiki/assets/js/search-page.js')}}"></script>
 </body>
 </html>

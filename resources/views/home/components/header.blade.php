@@ -24,7 +24,8 @@
                 <ul class="wrapper__nav-lists">
                   @foreach($category as $category)
                   <li class="wrapper__nav-items">
-                    <a href="search-page.html" class="nav__items-links">
+                    <a href="{{route('category.product',['slug'=>$category->slug,'id'=>$category->id])}}"
+                      class="nav__items-links">
 
                       <span class="nav__items-text">{{$category->name}}</span>
                     </a>
@@ -33,7 +34,9 @@
                         @foreach($category->categoryChildren as $child)
                         <li class="items__submenu-lists">
                           <ul>
-                            <li class="submenu__lists-items">{{$child->name}}</li>
+                            <li class="submenu__lists-items"><a
+                                href="{{route('category.product',['slug'=>$child->slug,'id'=>$child->id])}}"
+                                class="nav__items-links">{{$child->name}}</a></li>
                           </ul>
                         </li>
                         @endforeach
@@ -49,15 +52,16 @@
             <i class="mobile__search-icon fas fa-search"></i>
           </label>
           <input type="checkbox" hidden id="mobile-search-checkbox" class="logo__left-checkbox">
-          <div class="logo__left-search">
+          <form action="{{route('search')}}" method="post" class="logo__left-search">
+            @csrf
             <div class="left__search-form">
               <input type="text" class="search__form-input"
-                placeholder="Tìm sản phẩm, danh mục hoặc thương hiệu mong muốn...">
+                placeholder="Tìm sản phẩm, danh mục hoặc thương hiệu mong muốn..." name="key">
               <button class="search__form-btn"><img src="{{asset('Tiki/assets/img/search_icon.png')}}" alt="search"
                   class="form__btn-icon">Tìm Kiếm</button>
-
             </div>
-          </div>
+          </form>
+
         </div>
 
         <div class="search__logo-right">

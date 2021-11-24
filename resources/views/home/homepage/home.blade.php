@@ -240,7 +240,7 @@
                     <div class="hot__category-body">
                         @foreach ($category as $cat)
                         <a href="" class="hot__category-item">
-                            <img src="{{asset('Tiki/assets/img/quicklinks_item_1.png')}}" alt="">
+                            <img src="{{$cat->photo_url}}" alt="">
                             <span>{{$cat->name}}</span>
                         </a>
                         @endforeach

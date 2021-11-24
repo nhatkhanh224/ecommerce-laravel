@@ -7,9 +7,7 @@
                             <li class="footer-item">
                                 <a href="" class="footer-item__link">Trung tâm trợ giúp</a>
                             </li>
-                            <li class="footer-item"> 
-                                <a href="" class="footer-item__link">Éc Éc Éc</a>
-                            </li>
+                            
                             <li class="footer-item">
                                 <a href="" class="footer-item__link">Hướng dẫn mua hàng</a>
                             </li>
@@ -21,9 +19,7 @@
                             <li class="footer-item">
                                 <a href="" class="footer-item__link">Giới thiệu</a>
                             </li>
-                            <li class="footer-item">  
-                                <a href="" class="footer-item__link">Éc Éc Éc</a>
-                            </li>
+                            
                             <li class="footer-item"></li>
                                 <a href="" class="footer-item__link"> Điều khoản</a>
                             </li>
@@ -34,9 +30,7 @@
                         <li class="footer-item">
                             <a href="" class="footer-item__link">Trung tâm trợ giúp</a>
                         </li>
-                        <li class="footer-item"> 
-                            <a href="" class="footer-item__link">Éc Éc Éc</a>
-                        </li>
+                        
                         <li class="footer-item">
                             <a href="" class="footer-item__link">Hướng dẫn mua hàng</a>
                         </li>
@@ -66,10 +60,10 @@
                         <div class="footer__download">
                             <div class="footer__download-apps">
                                 <a href="" class="footer__download-app-link">
-                                    <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/playstore.png')}}" alt="Google-play" class="footer__download-app-img">
+                                    <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/playstore.png" alt="Google-play" class="footer__download-app-img">
                                 </a>
                                 <a href="" class="footer__download-app-link">                                    
-                                    <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/appstore.png')}}" alt="App-store" class="footer__download-app-img">
+                                    <img src="https://frontend.tikicdn.com/_desktop-next/static/img/icons/appstore.png" alt="App-store" class="footer__download-app-img">
                                 </a>
                             </div>
                         </div>

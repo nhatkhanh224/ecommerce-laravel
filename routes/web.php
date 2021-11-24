@@ -247,4 +247,8 @@ Route::prefix('admin')->group(function () {
             'as'=>'checkout',
             'uses'=>'HomeController@checkout'
         ]);
+        Route::post('search',[
+            'as'=>'search',
+            'uses'=>'HomeController@search'
+        ]);
     });

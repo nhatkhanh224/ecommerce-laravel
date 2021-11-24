@@ -3,34 +3,7 @@
 @section('css')
 
 @endsection
-@section('js')
 
-<script>
-var image = $(".product-image img").attr("src");
-
-function changeImage(id) {
-  var img_small = $("#" + id).attr("src");
-  $(".product-detail-image img").attr("src", img_small);
-}
-</script>
-
-<script>
-$('.cart').click(function(e) {
-  e.preventDefault();
-  let urlCart = $(this).data("url");
-  $.ajax({
-    type: 'GET',
-    url: urlCart,
-    success: function(result) { //we got the response
-      alert('Thêm sản phẩm thành công');
-    },
-    error: function(jqxhr, status, exception) {
-      alert('Exception:', exception);
-    }
-  })
-})
-</script>
-@endsection
 @section('content')
 <div class="product__app">
   <div class="grid wide">
@@ -130,7 +103,7 @@ $('.cart').click(function(e) {
         
       </div>
     </div>
-    <div class="product__same">
+    <!-- <div class="product__same">
       <div class="product__same-wrapper">
         <h4 class="product__same-title">Sản Phẩm Tương Tự</h4>
         <div class="product__same-container">
@@ -402,7 +375,8 @@ $('.cart').click(function(e) {
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
+    
     <div class="product__description">
       <div class="product__description-wrapper">
         <div class="product__description-left">
@@ -427,67 +401,19 @@ $('.cart').click(function(e) {
       <div class="home__main-container">
         <div class="home__main-header" style="position:sticky;top:0">
           <div class="main__header-title">Gợi Ý Hôm Nay</div>
-          <div class="main__header-menu">
-            <a href="" class="header__menu-links">
-              <img
-                src="https://salt.tikicdn.com/cache/w100/ts/upload/6d/56/64/3c4a8a3a7475311d8c6892d9ede8ead7.png.webp"
-                alt="">
-              <div class="header__menu-title">Dành Cho Bạn</div>
-            </a>
-            <a href="" class="header__menu-links">
-              <img
-                src="https://salt.tikicdn.com/cache/w100/ts/upload/6d/56/64/3c4a8a3a7475311d8c6892d9ede8ead7.png.webp"
-                alt="">
-              <div class="header__menu-title">Dành Cho Bạn</div>
-            </a>
-            <a href="" class="header__menu-links">
-              <img
-                src="https://salt.tikicdn.com/cache/w100/ts/upload/6d/56/64/3c4a8a3a7475311d8c6892d9ede8ead7.png.webp"
-                alt="">
-              <div class="header__menu-title">Dành Cho Bạn</div>
-            </a>
-            <a href="" class="header__menu-links">
-              <img
-                src="https://salt.tikicdn.com/cache/w100/ts/upload/6d/56/64/3c4a8a3a7475311d8c6892d9ede8ead7.png.webp"
-                alt="">
-              <div class="header__menu-title">Dành Cho Bạn</div>
-            </a>
-            <a href="" class="header__menu-links">
-              <img
-                src="https://salt.tikicdn.com/cache/w100/ts/upload/6d/56/64/3c4a8a3a7475311d8c6892d9ede8ead7.png.webp"
-                alt="">
-              <div class="header__menu-title">Dành Cho Bạn</div>
-            </a>
-            <a href="" class="header__menu-links">
-              <img
-                src="https://salt.tikicdn.com/cache/w100/ts/upload/6d/56/64/3c4a8a3a7475311d8c6892d9ede8ead7.png.webp"
-                alt="">
-              <div class="header__menu-title">Dành Cho Bạn</div>
-            </a>
-            <a href="" class="header__menu-links">
-              <img
-                src="https://salt.tikicdn.com/cache/w100/ts/upload/6d/56/64/3c4a8a3a7475311d8c6892d9ede8ead7.png.webp"
-                alt="">
-              <div class="header__menu-title">Dành Cho Bạn</div>
-            </a>
-            <a href="" class="header__menu-links">
-              <img
-                src="https://salt.tikicdn.com/cache/w100/ts/upload/6d/56/64/3c4a8a3a7475311d8c6892d9ede8ead7.png.webp"
-                alt="">
-              <div class="header__menu-title">Dành Cho Bạn</div>
-            </a>
-          </div>
+         
         </div>
         <div class="home__main-body">
           <div class="row sm-gutter">
+            @foreach($productsRecommended as $product)
             <div class="col l-2-4 m-4 c-6">
-              <a class="main__body-item" href="">
+              <a class="main__body-item" href="{{route('product.detail',['id'=>$product->id])}}">
                 <div class="body__item-img">
                   <img
-                    src="https://salt.tikicdn.com/cache/200x200/ts/product/2c/28/4a/048c42556545a326d64fc144970291b7.jpg.webp"
+                    src="{{$product->feature_image_path}}"
                     alt="">
                 </div>
-                <h4 class="body__item-name">Điện Thoại Samsung Galaxy A02s (4GB/64GB) - Hàng Chính Hãng</h4>
+                <h4 class="body__item-name">{{$product->name}}</h4>
                 <div class="body__item-action">
                   <div class="body__item-rating">
                     <i class="body__item-star fas fa-star"></i>
@@ -496,232 +422,17 @@ $('.cart').click(function(e) {
                     <i class="body__item-star fas fa-star"></i>
                     <i class="fas fa-star"></i>
                   </div>
-                  <span class="body__item-sold">88 Đã bán</span>
+                  <!-- <span class="body__item-sold">88 Đã bán</span> -->
                 </div>
                 <div class="body__item-price">
-                  <span class="item__price-discount">1.200.000đ</span>
-                  <span class="item__price-discount-percent">10%</span>
+                  <span class="item__price-discount">{{number_format($product->price)}} đ</span>
+                  
                 </div>
               </a>
             </div>
-            <div class="col l-2-4 m-4 c-6">
-              <a class="main__body-item" href="">
-                <div class="body__item-img">
-                  <img
-                    src="https://salt.tikicdn.com/cache/200x200/ts/product/2c/28/4a/048c42556545a326d64fc144970291b7.jpg.webp"
-                    alt="">
-                </div>
-                <h4 class="body__item-name">Điện Thoại Samsung Galaxy A02s (4GB/64GB) - Hàng Chính Hãng</h4>
-                <div class="body__item-action">
-                  <div class="body__item-rating">
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span class="body__item-sold">88 Đã bán</span>
-                </div>
-                <div class="body__item-price">
-                  <span class="item__price-discount">1.200.000đ</span>
-                  <span class="item__price-discount-percent">10%</span>
-                </div>
-              </a>
-            </div>
-            <div class="col l-2-4 m-4 c-6">
-              <a class="main__body-item" href="">
-                <div class="body__item-img">
-                  <img
-                    src="https://salt.tikicdn.com/cache/200x200/ts/product/2c/28/4a/048c42556545a326d64fc144970291b7.jpg.webp"
-                    alt="">
-                </div>
-                <h4 class="body__item-name">Điện Thoại Samsung Galaxy A02s (4GB/64GB) - Hàng Chính Hãng</h4>
-                <div class="body__item-action">
-                  <div class="body__item-rating">
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span class="body__item-sold">88 Đã bán</span>
-                </div>
-                <div class="body__item-price">
-                  <span class="item__price-discount">1.200.000đ</span>
-                  <span class="item__price-discount-percent">10%</span>
-                </div>
-              </a>
-            </div>
-            <div class="col l-2-4 m-4 c-6">
-              <a class="main__body-item" href="">
-                <div class="body__item-img">
-                  <img
-                    src="https://salt.tikicdn.com/cache/200x200/ts/product/2c/28/4a/048c42556545a326d64fc144970291b7.jpg.webp"
-                    alt="">
-                </div>
-                <h4 class="body__item-name">Điện Thoại Samsung Galaxy A02s (4GB/64GB) - Hàng Chính Hãng</h4>
-                <div class="body__item-action">
-                  <div class="body__item-rating">
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span class="body__item-sold">88 Đã bán</span>
-                </div>
-                <div class="body__item-price">
-                  <span class="item__price-discount">1.200.000đ</span>
-                  <span class="item__price-discount-percent">10%</span>
-                </div>
-              </a>
-            </div>
-            <div class="col l-2-4 m-4 c-6">
-              <a class="main__body-item" href="">
-                <div class="body__item-img">
-                  <img
-                    src="https://salt.tikicdn.com/cache/200x200/ts/product/2c/28/4a/048c42556545a326d64fc144970291b7.jpg.webp"
-                    alt="">
-                </div>
-                <h4 class="body__item-name">Điện Thoại Samsung Galaxy A02s (4GB/64GB) - Hàng Chính Hãng</h4>
-                <div class="body__item-action">
-                  <div class="body__item-rating">
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span class="body__item-sold">88 Đã bán</span>
-                </div>
-                <div class="body__item-price">
-                  <span class="item__price-discount">1.200.000đ</span>
-                  <span class="item__price-discount-percent">10%</span>
-                </div>
-              </a>
-            </div>
-            <div class="col l-2-4 m-4 c-6">
-              <a class="main__body-item" href="">
-                <div class="body__item-img">
-                  <img
-                    src="https://salt.tikicdn.com/cache/200x200/ts/product/2c/28/4a/048c42556545a326d64fc144970291b7.jpg.webp"
-                    alt="">
-                </div>
-                <h4 class="body__item-name">Điện Thoại Samsung Galaxy A02s (4GB/64GB) - Hàng Chính Hãng</h4>
-                <div class="body__item-action">
-                  <div class="body__item-rating">
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span class="body__item-sold">88 Đã bán</span>
-                </div>
-                <div class="body__item-price">
-                  <span class="item__price-discount">1.200.000đ</span>
-                  <span class="item__price-discount-percent">10%</span>
-                </div>
-              </a>
-            </div>
-            <div class="col l-2-4 m-4 c-6">
-              <a class="main__body-item" href="">
-                <div class="body__item-img">
-                  <img
-                    src="https://salt.tikicdn.com/cache/200x200/ts/product/2c/28/4a/048c42556545a326d64fc144970291b7.jpg.webp"
-                    alt="">
-                </div>
-                <h4 class="body__item-name">Điện Thoại Samsung Galaxy A02s (4GB/64GB) - Hàng Chính Hãng</h4>
-                <div class="body__item-action">
-                  <div class="body__item-rating">
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span class="body__item-sold">88 Đã bán</span>
-                </div>
-                <div class="body__item-price">
-                  <span class="item__price-discount">1.200.000đ</span>
-                  <span class="item__price-discount-percent">10%</span>
-                </div>
-              </a>
-            </div>
-            <div class="col l-2-4 m-4 c-6">
-              <a class="main__body-item" href="">
-                <div class="body__item-img">
-                  <img
-                    src="https://salt.tikicdn.com/cache/200x200/ts/product/2c/28/4a/048c42556545a326d64fc144970291b7.jpg.webp"
-                    alt="">
-                </div>
-                <h4 class="body__item-name">Điện Thoại Samsung Galaxy A02s (4GB/64GB) - Hàng Chính Hãng</h4>
-                <div class="body__item-action">
-                  <div class="body__item-rating">
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span class="body__item-sold">88 Đã bán</span>
-                </div>
-                <div class="body__item-price">
-                  <span class="item__price-discount">1.200.000đ</span>
-                  <span class="item__price-discount-percent">10%</span>
-                </div>
-              </a>
-            </div>
-            <div class="col l-2-4 m-4 c-6">
-              <a class="main__body-item" href="">
-                <div class="body__item-img">
-                  <img
-                    src="https://salt.tikicdn.com/cache/200x200/ts/product/2c/28/4a/048c42556545a326d64fc144970291b7.jpg.webp"
-                    alt="">
-                </div>
-                <h4 class="body__item-name">Điện Thoại Samsung Galaxy A02s (4GB/64GB) - Hàng Chính Hãng</h4>
-                <div class="body__item-action">
-                  <div class="body__item-rating">
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span class="body__item-sold">88 Đã bán</span>
-                </div>
-                <div class="body__item-price">
-                  <span class="item__price-discount">1.200.000đ</span>
-                  <span class="item__price-discount-percent">10%</span>
-                </div>
-              </a>
-            </div>
-            <div class="col l-2-4 m-4 c-6">
-              <a class="main__body-item" href="">
-                <div class="body__item-img">
-                  <img
-                    src="https://salt.tikicdn.com/cache/200x200/ts/product/2c/28/4a/048c42556545a326d64fc144970291b7.jpg.webp"
-                    alt="">
-                </div>
-                <h4 class="body__item-name">Điện Thoại Samsung Galaxy A02s (4GB/64GB) - Hàng Chính Hãng</h4>
-                <div class="body__item-action">
-                  <div class="body__item-rating">
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="body__item-star fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                  </div>
-                  <span class="body__item-sold">88 Đã bán</span>
-                </div>
-                <div class="body__item-price">
-                  <span class="item__price-discount">1.200.000đ</span>
-                  <span class="item__price-discount-percent">10%</span>
-                </div>
-              </a>
-            </div>
+            @endforeach
           </div>
-          <a href="" class="main__body-seemore">XEM THÊM</a>
+         
         </div>
       </div>
     </div>

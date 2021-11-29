@@ -1,5 +1,6 @@
+
 <header class="header">
-  <div class="grid wide">
+<div class="grid wide">
     <!-- Start header search -->
     <div class="header__search">
       <div class="header__search-logo">
@@ -69,6 +70,7 @@
             <button class="right__user-logobtn" id="right__user-logobtn">
               <img src="{{asset('Tiki/assets/img/logo_user.png')}}" alt="logo" class="right__user-icon">
             </button>
+            @if(!Auth::check())
             <button class="right__user-text hide-on-mobile-tablet" id="right__user-btn">
               <span class="user__text-login">Đăng Nhập / Đăng Ký</span>
               <span class="user__text-label">
@@ -76,7 +78,22 @@
                 <img src="{{asset('Tiki/assets/img/drop_icon.png')}}" alt="drop_icon">
               </span>
             </button>
-            <div class="right__user-modal" id="right__user-modal">
+            @else
+            <button class="right__user-text hide-on-mobile-tablet" id="right__user-btn">
+              <span class="user__text-login">Tài khoản</span>
+              <span style="position: relative;" class="user__text-label">
+                <span>{{$name}}</span>
+                <img src="{{asset('Tiki/assets/img/drop_icon.png')}}" alt="drop_icon">
+                <ul class="profile">
+                  <li class="profile_item"><a href="">Đơn hàng của tôi</a></li>
+                  <li class="profile_item"><a href="">Thông báo của tôi</a></li>
+                  <li class="profile_item"><a href="">Tài khoản của tôi</a></li>
+                  <li class="profile_item"><a href="{{route('admin.logout')}}">Thoát tài khoản</a></li>
+                </ul>
+              </span>
+            </button>
+            @endif
+            <!-- <div class="right__user-modal" id="right__user-modal">
               <div class="right__modal-content">
                 <button class="modal__btn-close">
                   <img src="https://salt.tikicdn.com/ts/upload/fe/20/d7/6d7764292a847adcffa7251141eb4730.png')}}"
@@ -175,7 +192,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <!--  -->
             <!-- <div class="right__user-dropdown">
                                     <button class="user__dropdown-btn">Đăng nhập</button>

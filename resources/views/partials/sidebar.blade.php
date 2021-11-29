@@ -100,6 +100,15 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="{{route('orders.index')}}" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>
+              Quản lí đơn hàng
+              <span class="right badge badge-danger">New</span>
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="{{route('permissions.create')}}" class="nav-link">
 
             <p>

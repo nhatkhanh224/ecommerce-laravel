@@ -1,27 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" />
-  <link rel="stylesheet" href="{{asset('Tiki/assets/font/fontawesome/css/all.min.css')}}">
-  <link rel="stylesheet" href="{{asset('Tiki/assets/css/owl.carousel.min.css')}}">
-  <link rel="stylesheet" href="{{asset('Tiki/assets/css/owl.theme.default.min.css')}}">
-  <link rel="stylesheet" href="{{asset('Tiki/assets/css/base.css')}}">
-  <link rel="stylesheet" href="{{asset('Tiki/assets/css/cart.css')}}">
-  <link rel="stylesheet" href="{{asset('Tiki/assets/css/grid.css')}}">
-  <link rel="stylesheet" href="{{asset('Tiki/assets/css/responsive.css')}}">
-  <title>Tiki</title>
-</head>
-
-<body>
-  <div class="main">
-    <!-- Start hearder -->
-    @include('home.components.header')
-    <!-- End header -->
-    @if($count_cart>0)
+@extends('layouts.home')
+@section('content')
+@if($count_cart_exists>0)
     <div class="cart__app">
       <div class="grid wide">
         <div class="cart__app-header">
@@ -127,8 +106,8 @@
                   <div class="head__wrapper-coupon">
                     <span>{{$user->name}} </span>
                     <span>{{$user->phone_number}}</span>
-                   </div>
-                   <p class="cart_address">{{$user->address}}</p>
+                  </div>
+                  <p class="cart_address">{{$user->address}}</p>
                 </div>
               </div>
               <div class="total__price-head">
@@ -169,10 +148,10 @@
               </div>
               <form action="{{route('checkout')}}" method="post">
                 @csrf
-              <input type="hidden" name="amount" value="{{$total}}"/>
-              <button class="body__wrapper-submit">Mua Hàng ({{$count_cart}})</button>
+                <input type="hidden" name="amount" value="{{$total}}" />
+                <button class="body__wrapper-submit">Mua Hàng</button>
               </form>
-              
+
             </div>
           </div>
         </div>
@@ -180,25 +159,19 @@
     </div>
     @else
     <div class="app__content-cart">
-            <div class="grid wide">
-                <div class="cart__main">
-                    <h2>Giỏ Hàng</h2>
-                    <div class="cart__empty">
-                        <img src="{{asset('Tiki/assets/img/cart_empty.png')}}" alt="cart_empty">
-                        <p class="cart__empty-note">Không có sản phẩm nào trong giỏ hàng của bạn.</p>
-                        <a href="{{route('homepage.index')}}" class="cart__empty-btn">Tiếp tục mua sắm</a>
-                    </div>
-                </div>
-            </div>
+      <div class="grid wide">
+        <div class="cart__main">
+          <h2>Giỏ Hàng</h2>
+          <div class="cart__empty">
+            <img src="{{asset('Tiki/assets/img/cart_empty.png')}}" alt="cart_empty">
+            <p class="cart__empty-note">Không có sản phẩm nào trong giỏ hàng của bạn.</p>
+            <a href="{{route('homepage.index')}}" class="cart__empty-btn">Tiếp tục mua sắm</a>
+          </div>
         </div>
-      @endif
-    <!-- Start Footer -->
-    @include('home.components.footer')
-    <!-- End Footer -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{asset('Tiki/assets/js/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('Tiki/assets/js/cart.js')}}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      </div>
+    </div>
+    @endif
+@endsection
     <script>
     function increase(id) {
       $.ajax({

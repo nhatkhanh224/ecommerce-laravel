@@ -239,7 +239,7 @@
                     </div>
                     <div class="hot__category-body">
                         @foreach ($category as $cat)
-                        <a href="" class="hot__category-item">
+                        <a href="{{route('category.product',['slug'=>$cat->slug,'id'=>$cat->id])}}" class="hot__category-item">
                             <img src="{{$cat->photo_url}}" alt="">
                             <span>{{$cat->name}}</span>
                         </a>

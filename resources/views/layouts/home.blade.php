@@ -12,13 +12,25 @@
     <link rel="stylesheet" href="{{asset('Tiki/assets/css/main.css')}}">
     <link rel="stylesheet" href="{{asset('Tiki/assets/css/grid.css')}}">
     <link rel="stylesheet" href="{{asset('Tiki/assets/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{asset('Tiki/assets/css/cart.css')}}">
     <link rel="stylesheet" href="{{asset('Tiki/assets/css/page-search.css')}}">
     <link rel="stylesheet" href="{{asset('Tiki/assets/css/owl.theme.default.min.css')}}">
     <title>Tiki</title>
 </head>
 <body>
     <div class="main">
-        @include('home.components.header')
+        <?php 
+            use Illuminate\Support\Facades\Auth;
+            use App\Cart;
+            $user = Auth::user();
+            $name=$user->name;
+            $count_cart=0;
+            $cart=Cart::where('username',Auth::user()->email)->get();
+            foreach ($cart as $cart){
+                $count_cart+=$cart->quantity;
+            }
+        ?>
+        @include('home.components.header', ['name' => $name,'count_cart' => $count_cart])
         @yield('content')
         @include('home.components.footer')
     </div>

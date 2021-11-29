@@ -208,6 +208,24 @@ Route::prefix('admin')->group(function () {
         ]);
         
     });
+    Route::prefix('orders')->group(function () {
+        Route::get('/',[
+            'as'=>'orders.index',
+            'uses'=>'OrderController@index'
+        ]);
+        Route::get('/show/{id}',[
+            'as'=>'orders.show',
+            'uses'=>'OrderController@show'
+        ]);
+        Route::get('/delete/{id}',[
+            'as'=>'orders.delete',
+            'uses'=>'OrderController@delete'
+        ]);
+        Route::get('/update-status/{id}',[
+            'as'=>'orders.update-status',
+            'uses'=>'OrderController@updateStatus'
+        ]);
+    });
 });
 
     Route::prefix('homepage')->group(function () {

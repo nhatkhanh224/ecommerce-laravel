@@ -520,6 +520,7 @@
     font-size: 12px;
     line-height: 20px;
     min-width: 120px;
+    position: relative;
 }
 .user__text-label img {
     width: 16px;
@@ -2569,4 +2570,52 @@
         rgba(255, 255, 255, 0),
         rgb(255, 255, 255)
     );
+}
+.user__text-label:hover .profile {
+    display: block;
+}
+.profile {
+    position: absolute;
+    top: 35px;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(239, 239, 239);
+    width: auto;
+    min-width: 196px;
+    z-index: 15;
+    color: black;
+    margin: 0px;
+    padding: 10px 0px;
+    border-radius: 0px 0px 3px 3px;
+    display: none;
+}
+.profile::before {
+    border-width: 9px;
+    border-style: solid;
+    border-color: transparent transparent rgb(255, 255, 255);
+    border-image: initial;
+    margin-left: -9px;
+    bottom: 100%;
+    left: 50%;
+    content: " ";
+    height: 0px;
+    width: 0px;
+    position: absolute;
+    pointer-events: none;
+}
+.profile::after {
+    content: " ";
+    background: transparent;
+    height: 20px;
+    width: 150px;
+    top: -20px;
+    left: calc(50% - 65px);
+    position: absolute;
+    display: inline-block;
+}
+.profile_item{
+    padding: 10px;
+}
+.profile_item:hover {
+    background-color: rgb(245, 244, 245);
+    color: rgb(0, 0, 0);
 }

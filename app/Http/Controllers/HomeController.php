@@ -29,22 +29,19 @@ class HomeController extends Controller
         $productsRecommended=Product::latest('view_count','desc')->take(12)->get();
         $category_tabs= Category::where('parent_id',0)->limit(5)->orderBy('id', 'DESC')->get();
         $category_menus=Category::where('parent_id',0)->limit(3)->get();
-        $count_cart=Cart::where('username',Auth::user()->email)->count();
-        return view('home.homepage.home',compact('sliders','category','products','productsRecommended','category_tabs','category_menus','count_cart'));
+        return view('home.homepage.home',compact('sliders','category','products','productsRecommended','category_tabs','category_menus'));
     }
     public function category($slug,$category_id){
         $category = Category::where('parent_id',0)->get();
         $products=Product::where('category_id',$category_id)->paginate(12);
-        $count_cart=Cart::where('username',Auth::user()->email)->count();
-        return view('home.product.category.list',compact('category','products','count_cart'));
+        return view('home.product.category.list',compact('category','products'));
     }
     public function productDetail($product_id){
         $category = Category::where('parent_id',0)->get();
         $product_details=Product::where('id',$product_id)->first();
         $productsRecommended=Product::where('category_id',$product_details->category_id)->get();
         $product_images=ProductImage::where('product_id',$product_id)->get();
-        $count_cart=Cart::where('username',Auth::user()->email)->count();
-        return view('home.product.detail',compact('category','product_details','product_images','count_cart','productsRecommended'));
+        return view('home.product.detail',compact('category','product_details','product_images','productsRecommended'));
     }
     public function addToCart($id,Request $request){
         $product= Product::where('id',$id)->first();
@@ -88,8 +85,8 @@ class HomeController extends Controller
         $category = Category::where('parent_id',0)->get();
         $user = Auth::user();
         $carts=Cart::where('username',$user->email)->get();
-        $count_cart=Cart::where('username',$user->email)->count();
-        return view('home.cart.list',compact('category','carts','count_cart','user'));
+        $count_cart_exists=Cart::where('username',$user->email)->count();
+         return view('home.cart.list',compact('category','carts','user','count_cart_exists'));
     }
     // public function updateCart(Request $request,$id){
         // if($request->id && $request->quantity){
@@ -153,10 +150,9 @@ class HomeController extends Controller
     public function search(Request $request) {
         $category = Category::where('parent_id',0)->get();
         $user = Auth::user();
-        $count_cart=Cart::where('username',$user->email)->count();
         $key=$request->key;
         $products=Product::where('name','like','%'.$key.'%')->paginate(12);
-        return view('home.homepage.search',compact('products','category','count_cart'));
+        return view('home.homepage.search',compact('products','category'));
     }
     
 }

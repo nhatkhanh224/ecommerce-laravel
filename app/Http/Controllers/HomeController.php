@@ -154,5 +154,16 @@ class HomeController extends Controller
         $products=Product::where('name','like','%'.$key.'%')->paginate(12);
         return view('home.homepage.search',compact('products','category'));
     }
+    public function historyOrder(){
+        $category = Category::where('parent_id',0)->get();
+        $user = Auth::user();
+        $orders=Order::where('email',$user->email)->get();
+        return view('home.homepage.history_order',compact('orders','category'));
+    }
+    public function viewOrder($id){
+        $category = Category::where('parent_id',0)->get();
+        $order=Order_Detail::where('order_id',$id)->get();
+        return view('home.homepage.view_order',compact('order','category'));
+    }
     
 }

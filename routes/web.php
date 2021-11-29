@@ -269,4 +269,12 @@ Route::prefix('admin')->group(function () {
             'as'=>'search',
             'uses'=>'HomeController@search'
         ]);
+        Route::get('order/history',[
+            'as'=>'order.history',
+            'uses'=>'HomeController@historyOrder'
+        ]);
+        Route::get('order/view/{id}',[
+            'as'=>'order.view',
+            'uses'=>'HomeController@viewOrder'
+        ]);
     });

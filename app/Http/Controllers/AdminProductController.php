@@ -71,7 +71,6 @@ class AdminProductController extends Controller
                     $product->images()->create([
                         'image_path' => $dataProductImageDetail['file_path'],
                         'image_name' => $dataProductImageDetail['file_name']
-
                     ]);
                 }
             }
@@ -84,18 +83,14 @@ class AdminProductController extends Controller
                     $tagInstance = $this->tag->firstOrCreate(['name' => $tagItem]);
                     $tagIds[] = $tagInstance->id;
                 }
-
             }
             $product->tags()->attach($tagIds);
-
             DB::commit();
             return redirect()->route('products.index');
         } catch (\Exception $exception) {
             DB::rollBack();
             Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
         }
-
-
     }
     public function edit($id){
         $product = $this->product->find($id);

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\StorageImageTrait;
+use DB;
 use App\Slider;
 use App\Category;
 use App\Product;
@@ -13,14 +15,18 @@ use App\Cart;
 use App\Address;
 use App\Order;
 use App\Order_Detail;
+use App\Comment;
 
 class HomeController extends Controller
 {
+    use StorageImageTrait;
     private $slider;
+    private $comment;
    
-    public function __construct(Slider $slider)
+    public function __construct(Slider $slider,Comment $comment)
     {
         $this->slider = $slider;
+        $this->comment = $comment;
     }
     public function index(){
         $sliders=$this->slider->latest()->get();
@@ -41,7 +47,15 @@ class HomeController extends Controller
         $product_details=Product::where('id',$product_id)->first();
         $productsRecommended=Product::where('category_id',$product_details->category_id)->get();
         $product_images=ProductImage::where('product_id',$product_id)->get();
-        return view('home.product.detail',compact('category','product_details','product_images','productsRecommended'));
+        $comments=Comment::where('product_id',$product_id)->paginate(5);
+        $comment=Comment::where('product_id',$product_id)->first();
+        $comment_count=Comment::where('product_id',$product_id)->count();
+        $comment_mean=0;
+        foreach(Comment::where('product_id',$product_id)->get() as $comment){
+            $comment_mean+=($comment->rating)/$comment_count;
+        }
+        return view('home.product.detail',compact('category','product_details','product_images','productsRecommended','comments','comment',
+        'comment_count','comment_mean'));
     }
     public function addToCart($id,Request $request){
         $product= Product::where('id',$id)->first();
@@ -164,6 +178,33 @@ class HomeController extends Controller
         $category = Category::where('parent_id',0)->get();
         $order=Order_Detail::where('order_id',$id)->get();
         return view('home.homepage.view_order',compact('order','category'));
+    }
+    public function comment(Request $request){
+        $user = Auth::user();
+        try {
+            DB::beginTransaction();
+            $dataCommentCreate = [
+                'user_id' => $user->id,
+                'product_id' => $request->product_id,
+                'content' => $request->content,
+                'rating' => $request->rating,
+            ];
+            $comment = $this->comment->create($dataCommentCreate);
+            if ($request->hasFile('image_path')) {
+                foreach ($request->image_path as $fileItem) {
+                    $dataCommentImageDetail = $this->storageTraitUploadMutiple($fileItem, 'comment');
+                    $comment->images()->create([
+                        'image_path' => $dataCommentImageDetail['file_path'],
+                        'image_name' => $dataCommentImageDetail['file_name']
+                    ]);
+                }
+            }
+            DB::commit();
+            return redirect()->route('homepage.index');
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
+        }
     }
     
 }

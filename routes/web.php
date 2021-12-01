@@ -277,4 +277,8 @@ Route::prefix('admin')->group(function () {
             'as'=>'order.view',
             'uses'=>'HomeController@viewOrder'
         ]);
+        Route::post('comment',[
+            'as'=>'comment',
+            'uses'=>'HomeController@comment'
+        ]);
     });

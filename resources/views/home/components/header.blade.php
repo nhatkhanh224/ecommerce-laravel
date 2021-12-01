@@ -85,7 +85,7 @@
                 <span>{{$name}}</span>
                 <img src="{{asset('Tiki/assets/img/drop_icon.png')}}" alt="drop_icon">
                 <ul class="profile">
-                  <li class="profile_item"><a href="">Đơn hàng của tôi</a></li>
+                  <li class="profile_item"><a href="{{route('order.history')}}">Đơn hàng của tôi</a></li>
                   <li class="profile_item"><a href="">Thông báo của tôi</a></li>
                   <li class="profile_item"><a href="">Tài khoản của tôi</a></li>
                   <li class="profile_item"><a href="{{route('admin.logout')}}">Thoát tài khoản</a></li>

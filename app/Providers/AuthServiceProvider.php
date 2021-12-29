@@ -27,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         // Define permission
+        
         $permissionGateAndPolicy = new PermissionGateAndPolicyAccess();
         $permissionGateAndPolicy->setGateAndPolicyAccess();
     }

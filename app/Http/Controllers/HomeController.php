@@ -60,10 +60,10 @@ class HomeController extends Controller
     public function addToCart($id,Request $request){
         $product= Product::where('id',$id)->first();
         $user = Auth::user();
-        $count_cart=Cart::where('product_id',$id)->count();
+        $count_cart=Cart::where('product_id',$id)->where('username',$user->email)->count();
         if ($count_cart>0) {
             $cart= Cart::where('product_id',$id)->first();
-            Cart::where('product_id',$id)->update(['quantity'=>$cart->quantity+=$request->quantity]);
+            Cart::where('product_id',$id)->where('username',$user->email)->update(['quantity'=>$cart->quantity+=$request->quantity]);
         }else{
             $cart=new Cart();
             $cart->product_id = $id;
@@ -76,6 +76,7 @@ class HomeController extends Controller
             $cart->save();
         }
         return redirect()->route('cart');
+        
     }
     
     // public function addToCart($id){
@@ -96,11 +97,16 @@ class HomeController extends Controller
     //     return response()->json(['code'=>200,'message'=>'success'],200);
     // }
     public function showCart(){
-        $category = Category::where('parent_id',0)->get();
-        $user = Auth::user();
-        $carts=Cart::where('username',$user->email)->get();
-        $count_cart_exists=Cart::where('username',$user->email)->count();
-         return view('home.cart.list',compact('category','carts','user','count_cart_exists'));
+        if (Auth::check()) {
+            $category = Category::where('parent_id',0)->get();
+            $user = Auth::user();
+            $carts=Cart::where('username',$user->email)->get();
+            $count_cart_exists=Cart::where('username',$user->email)->count();
+            return view('home.cart.list',compact('category','carts','user','count_cart_exists'));
+        }else{
+            return redirect()->route('homepage.login');
+        }
+        
     }
     // public function updateCart(Request $request,$id){
         // if($request->id && $request->quantity){
@@ -118,8 +124,9 @@ class HomeController extends Controller
 
     // }
     public function updateQuantity($id,$quantity){
-        $cart= Cart::where('product_id',$id)->first();
-        Cart::where('product_id',$id)->update(['quantity'=>$cart->quantity+=$quantity]);
+        $user = Auth::user();
+        $cart= Cart::where('product_id',$id)->where('username',$user->email)->first();
+        Cart::where('product_id',$id)->where('username',$user->email)->update(['quantity'=>$cart->quantity+=$quantity]);
     }
     public function deleteCart($id,Request $request){
         // if($request->id){
@@ -206,5 +213,47 @@ class HomeController extends Controller
             Log::error('Message: ' . $exception->getMessage() . ' --- Line : ' . $exception->getLine());
         }
     }
-    
+    public function login(){
+        $category = Category::where('parent_id',0)->get();
+        return view('home.user.login',compact('category'));
+    }
+
+    public function loginPost(Request $request){
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->to('homepage');
+        }else{
+            return redirect()->route('homepage.login');
+        }
+    }
+    public function logout(){
+        Auth::logout();
+        return redirect()->to('homepage');
+    }
+    public function signup(Request $request){
+        $user=new User();
+        $user->name=$request->name;
+        $user->password=bcrypt($request->password);
+        $count_email=User::where('email',$request->email)->count();
+        if ($count_email>0) {
+            return redirect()->back();
+        }else{
+            $user->email=$request->email;
+        }
+        $user->save();
+        Auth::attempt(['email' => $request->email, 'password' => $request->password]);
+        return redirect()->route('homepage.user');
+    }
+    public function user(){
+        $category = Category::where('parent_id',0)->get();
+        $user=Auth::user();
+        $name=$user->name;
+        $phone_number=$user->phone_number;
+        $address=$user->address;
+        return view('home.user.information',compact('category','name','phone_number','address'));
+    }
+    public function userUpdate(Request $request){
+        $user=Auth::user();
+        User::where('id',$user->id)->update(['name'=>$request->name,'phone_number'=>$request->phone_number,'address'=>$request->address]);
+        return redirect()->to('homepage');
+    }
 }

@@ -27,44 +27,11 @@ Route::get('/logout', [
 
 Route::get('/home', function () {
     return view('home');
-});
+})->middleware('checklogin::class');;
     
 Route::prefix('admin')->group(function () {
     //Category
-    Route::prefix('categories')->group(function () {
-        Route::get('/',[
-            'as'=>'categories.index',
-            'uses'=>'CategoryController@index',
-            'middleware'=>'can:category-list',
-        ] );
-        Route::get('/create',[
-            'as'=>'categories.create',
-            'uses'=>'CategoryController@create',
-            'middleware'=>'can:category-add',
-        ] );
-        Route::post('/store', [
-            'as' => 'categories.store',
-            'uses' => 'CategoryController@store',
-            
-        ]);
-        Route::get('/edit/{id}',[
-            'as'=>'categories.edit',
-            'uses'=>'CategoryController@edit',
-            'middleware'=>'can:category-edit',
-        ] );
-        Route::post('/update/{id}', [
-            'as' => 'categories.update',
-            'uses' => 'CategoryController@update',
-            
-        ]);
-        Route::get('/delete/{id}',[
-            'as'=>'categories.delete',
-            'uses'=>'CategoryController@delete',
-            'middleware'=>'can:category-delete',
-        ] );
     
-    
-    });
     //Menu
     Route::prefix('menus')->group(function () {
         Route::get('/',[
@@ -98,7 +65,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('slider')->group(function () {
         Route::get('/',[
             'as'=>'slider.index',
-            'uses'=>'AdminSliderController@index'
+            'uses'=>'AdminSliderController@index',
         ] );
         Route::get('/create',[
             'as'=>'slider.create',
@@ -228,10 +195,26 @@ Route::prefix('admin')->group(function () {
     });
 });
 
-    Route::prefix('homepage')->group(function () {
+Route::prefix('homepage')->group(function () {
         Route::get('/',[
             'as'=>'homepage.index',
             'uses'=>'HomeController@index'
+        ]);
+        Route::get('/login',[
+            'as'=>'homepage.login',
+            'uses'=>'HomeController@login'
+        ]);
+        Route::post('/login',[
+            'as'=>'homepage.loginPost',
+            'uses'=>'HomeController@loginPost'
+        ]);
+        Route::post('/signup',[
+            'as'=>'homepage.signup',
+            'uses'=>'HomeController@signup'
+        ]);
+        Route::get('/logout',[
+            'as'=>'homepage.logout',
+            'uses'=>'HomeController@logout'
         ]);
         Route::get('/category/{slug}/{id}',[
             'as'=>'category.product',
@@ -280,5 +263,13 @@ Route::prefix('admin')->group(function () {
         Route::post('comment',[
             'as'=>'comment',
             'uses'=>'HomeController@comment'
+        ]);
+        Route::get('user',[
+            'as'=>'homepage.user',
+            'uses'=>'HomeController@user'
+        ]);
+        Route::post('user/update',[
+            'as'=>'homepage.userUpdate',
+            'uses'=>'HomeController@userUpdate'
         ]);
     });

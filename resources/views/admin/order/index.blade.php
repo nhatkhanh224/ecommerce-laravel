@@ -3,7 +3,14 @@
 @section('title')
 <title>Admin</title>
 @endsection
-
+@section('css')
+<style>
+  .table td, .table th {
+    padding:10px 5px;
+    
+}
+</style>
+@endsection
 @section('content')
 <div class="content-wrapper">
 
@@ -32,9 +39,9 @@
               </tr>
             </thead>
             <tbody>
-            @foreach($orders as $order)
+            @foreach($orders as $key => $order)
               <tr>
-                <th scope="row">{{$order->id}}</th>
+                <th scope="row"><span class="badge badge-primary">{{$loop->index+1}}</span></th>
                 <th scope="row">{{$order->id}}</th>
                 <th scope="row">{{$order->email}}</th>
                 <th scope="row">{{$order->address}}</th>
@@ -61,7 +68,7 @@
           </table>
         </div>
         <div class="col-md-12">
-          
+          {{$orders->links()}}
         </div>
       </div>
 

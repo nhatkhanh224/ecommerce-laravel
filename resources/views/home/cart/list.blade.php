@@ -101,7 +101,7 @@
                 <div class="price__head-wrapper">
                   <div class="head__wrapper-title">
                     <p class="wrapper__title-head">Giao tới</p>
-                    <a class="wrapper__title-coupon" href="#">Thay đổi</a>
+                    <a class="wrapper__title-coupon" href="{{route('homepage.user')}}">Thay đổi</a>
                   </div>
                   <div class="head__wrapper-coupon">
                     <span>{{$user->name}} </span>

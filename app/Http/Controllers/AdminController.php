@@ -26,6 +26,8 @@ class AdminController extends Controller
             'password' => $request->password
         ], $remember)) {
             return redirect()->to('home');
+        }else {
+            return redirect()->back();
         }
     }
 }

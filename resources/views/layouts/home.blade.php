@@ -28,13 +28,19 @@
     <?php 
             use Illuminate\Support\Facades\Auth;
             use App\Cart;
-            $user = Auth::user();
+            if (Auth::check()) {
+              $user = Auth::user();
             $name=$user->name;
             $count_cart=0;
             $cart=Cart::where('username',Auth::user()->email)->get();
             foreach ($cart as $cart){
                 $count_cart+=$cart->quantity;
             }
+            }else {
+              $name=null;
+              $count_cart=0;
+            }
+            
         ?>
     @include('home.components.header', ['name' => $name,'count_cart' => $count_cart])
     @yield('content')

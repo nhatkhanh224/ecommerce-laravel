@@ -90,7 +90,7 @@
         <span style="font-size: 19px; text-align: center; display: block; margin-bottom: 25px;">ADMİN LOGIN</span>
       </div>
       <section>
-        <form method="POST" action="">
+        <form method="POST" action="{{route('admin.post-login')}}">
           @csrf 
           <div class="arkalogin">
             <div class="loginbaslik">Admin Login</div>

@@ -72,7 +72,7 @@
             </button>
             @if(!Auth::check())
             <button class="right__user-text hide-on-mobile-tablet" id="right__user-btn">
-              <span class="user__text-login">Đăng Nhập / Đăng Ký</span>
+              <span class="user__text-login"><a href="{{route('homepage.login')}}" style="color:white">Đăng Nhập / Đăng Ký</a></span>
               <span class="user__text-label">
                 <span>Tài Khoản</span>
                 <img src="{{asset('Tiki/assets/img/drop_icon.png')}}" alt="drop_icon">
@@ -87,8 +87,8 @@
                 <ul class="profile">
                   <li class="profile_item"><a href="{{route('order.history')}}">Đơn hàng của tôi</a></li>
                   <li class="profile_item"><a href="">Thông báo của tôi</a></li>
-                  <li class="profile_item"><a href="">Tài khoản của tôi</a></li>
-                  <li class="profile_item"><a href="{{route('admin.logout')}}">Thoát tài khoản</a></li>
+                  <li class="profile_item"><a href="{{route('homepage.user')}}">Tài khoản của tôi</a></li>
+                  <li class="profile_item"><a href="{{route('homepage.logout')}}">Thoát tài khoản</a></li>
                 </ul>
               </span>
             </button>
@@ -228,9 +228,6 @@
         <a href="#" class="navbar__menu-icon">
           <img src="{{asset('Tiki/assets/img/navbar_logo.png')}}" alt="navbar_logo">
         </a>
-
-
-
       </div>
     </nav>
     <!-- End header navbar -->

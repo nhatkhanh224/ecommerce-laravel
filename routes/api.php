@@ -31,6 +31,10 @@ Route::get('category/{id}', function ($id) {
     $categories = Category::where('parent_id',$id)->get();
     return response($categories,200);
 });
+Route::get('/product', function () {
+    $products = Product::limit(10)->latest()->get();
+    return response($products,200);
+});
 Route::get('/product/{id}', function ($id) {
     $products = Product::where('category_id',$id)->get();
     return response($products,200);
@@ -47,11 +51,11 @@ Route::post('/login', function (Request $request) {
         return response()->json(['message'=>"Login Failed",'code'=>501]);
     }
 });
-Route::post('/product/{id}', function (Request $request,$id) {
-    $cartExits=Cart::where('product_id',$id)->count();
+Route::post('/product/{email}/{id}', function (Request $request,$id,$email) {
+    $cartExits=Cart::where('product_id',$id)->where('username',$email)->count();
     if ($cartExits>0) {
         $cart= Cart::where('product_id',$id)->first();
-        Cart::where('product_id',$id)->update(['quantity'=>$cart->quantity+=1]);
+        Cart::where('product_id',$id)->where('username',$email)->update(['quantity'=>$cart->quantity+=1]);
         return response()->json(['message'=>'Update Success','code'=>200]);
     }else {
         $cart = new Cart();
@@ -115,4 +119,16 @@ Route::post('/checkout/{email}', function (Request $request,$email) {
         }
     Cart::where('username',$email)->delete();
     return response()->json(['message'=>'Payment Success','code'=>200]);
+});
+Route::get('/history/{email}',function ($username) {
+    $orders= Order::where('email',$username)->get();
+    return response($orders,200);
+});
+Route::get('/history/detail/{id}',function ($id) {
+    $orders= Order_Detail::where('order_id',$id)->get();
+    return response($orders,200);
+});
+Route::get('/search/{key}',function ($key) {
+    $products=Product::where('name','like','%'.$key.'%')->get();
+    return response($products,200);
 });

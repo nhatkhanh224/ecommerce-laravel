@@ -3,7 +3,7 @@ Route::prefix('products')->group(function () {
   Route::get('/',[
       'as'=>'products.index',
       'uses'=>'AdminProductController@index',
-      
+      'middleware'=>'can:product-list',
   ] );
   Route::get('/create',[
       'as'=>'products.create',
